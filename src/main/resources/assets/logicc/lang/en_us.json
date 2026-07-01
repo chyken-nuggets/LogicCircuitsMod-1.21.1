@@ -1,0 +1,13 @@
+{
+  "itemGroup.logicc": "Example Mod Tab",
+  "block.logicc.example_block": "Example Block",
+  "item.logicc.example_item": "Example Item",
+
+  "logicc.configuration.title": "Example Mod Configs",
+  "logicc.configuration.section.logicc.common.toml": "Example Mod Configs",
+  "logicc.configuration.section.logicc.common.toml.title": "Example Mod Configs",
+  "logicc.configuration.items": "Item List",
+  "logicc.configuration.logDirtBlock": "Log Dirt Block",
+  "logicc.configuration.magicNumberIntroduction": "Magic Number Text",
+  "logicc.configuration.magicNumber": "Magic Number"
+}
