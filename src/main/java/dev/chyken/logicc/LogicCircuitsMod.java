@@ -52,7 +52,7 @@ public class LogicCircuitsMod {
 
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
-
+            event.accept(LogicItems.NOT_GATE_ITEM);
         }
     }
 
