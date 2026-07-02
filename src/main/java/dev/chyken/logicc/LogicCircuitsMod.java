@@ -1,6 +1,8 @@
 package dev.chyken.logicc;
 
 
+import dev.chyken.block.LogicBlocks;
+import dev.chyken.item.LogicItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -25,6 +27,9 @@ public class LogicCircuitsMod {
 
     public LogicCircuitsMod(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
+
+        LogicBlocks.BLOCKS.register(modEventBus);
+        LogicItems.ITEMS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
 
