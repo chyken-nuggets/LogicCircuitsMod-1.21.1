@@ -10,4 +10,5 @@ public class LogicItems {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(LogicCircuitsMod.MODID);
 
     public static final DeferredItem<BlockItem> NOT_GATE_ITEM = ITEMS.registerSimpleBlockItem("not_gate", LogicBlocks.NOT_GATE);
+    public static final DeferredItem<BlockItem> OR_GATE_ITEM = ITEMS.registerSimpleBlockItem("or_gate", LogicBlocks.OR_GATE);
 }
