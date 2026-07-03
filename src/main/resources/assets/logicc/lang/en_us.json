@@ -1,5 +1,11 @@
 {
   "block.logicc.not_gate": "NOT Gate",
+  "block.logicc.or_gate": "OR Gate",
+  "block.logicc.and_gate": "AND Gate",
+  "block.logicc.nor_gate": "NOR Gate",
+  "block.logicc.nand_gate": "NAND Gate",
+  "block.logicc.xor_gate": "XOR Gate",
+  "block.logicc.xnor_gate": "XNOR Gate",
 
   "logicc.configuration.title": "Example Mod Configs",
   "logicc.configuration.section.logicc.common.toml": "Example Mod Configs",

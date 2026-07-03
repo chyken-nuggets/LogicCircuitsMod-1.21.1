@@ -54,6 +54,11 @@ public class LogicCircuitsMod {
         if (event.getTabKey() == CreativeModeTabs.REDSTONE_BLOCKS) {
             event.accept(LogicItems.NOT_GATE_ITEM);
             event.accept(LogicItems.OR_GATE_ITEM);
+            event.accept(LogicItems.AND_GATE_ITEM);
+            event.accept(LogicItems.NOR_GATE_ITEM);
+            event.accept(LogicItems.NAND_GATE_ITEM);
+            event.accept(LogicItems.XOR_GATE_ITEM);
+            event.accept(LogicItems.XNOR_GATE_ITEM);
         }
     }
 

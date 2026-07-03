@@ -11,4 +11,9 @@ public class LogicItems {
 
     public static final DeferredItem<BlockItem> NOT_GATE_ITEM = ITEMS.registerSimpleBlockItem("not_gate", LogicBlocks.NOT_GATE);
     public static final DeferredItem<BlockItem> OR_GATE_ITEM = ITEMS.registerSimpleBlockItem("or_gate", LogicBlocks.OR_GATE);
+    public static final DeferredItem<BlockItem> AND_GATE_ITEM = ITEMS.registerSimpleBlockItem("and_gate", LogicBlocks.AND_GATE);
+    public static final DeferredItem<BlockItem> NOR_GATE_ITEM = ITEMS.registerSimpleBlockItem("nor_gate", LogicBlocks.NOR_GATE);
+    public static final DeferredItem<BlockItem> NAND_GATE_ITEM = ITEMS.registerSimpleBlockItem("nand_gate", LogicBlocks.NAND_GATE);
+    public static final DeferredItem<BlockItem> XOR_GATE_ITEM = ITEMS.registerSimpleBlockItem("xor_gate", LogicBlocks.XOR_GATE);
+    public static final DeferredItem<BlockItem> XNOR_GATE_ITEM = ITEMS.registerSimpleBlockItem("xnor_gate", LogicBlocks.XNOR_GATE);
 }
