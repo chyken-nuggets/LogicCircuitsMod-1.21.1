@@ -1,7 +1,5 @@
 {
-  "itemGroup.logicc": "Example Mod Tab",
-  "block.logicc.example_block": "Example Block",
-  "item.logicc.example_item": "Example Item",
+  "block.logicc.not_gate": "NOT Gate",
 
   "logicc.configuration.title": "Example Mod Configs",
   "logicc.configuration.section.logicc.common.toml": "Example Mod Configs",

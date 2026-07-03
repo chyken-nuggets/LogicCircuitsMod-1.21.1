@@ -13,10 +13,10 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DiodeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+
 public class NotGateBlock extends DiodeBlock {
     public static final MapCodec<NotGateBlock> CODEC = simpleCodec(NotGateBlock::new);
 
-    @Override
     public MapCodec<NotGateBlock> codec() {
         return CODEC;
     }
@@ -31,10 +31,8 @@ public class NotGateBlock extends DiodeBlock {
         );
     }
 
-    @Override
     protected int getDelay(BlockState state) { return 2; }
 
-    @Override
     protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
         if (blockState.getValue(POWERED)) {
             return 0;
@@ -43,17 +41,14 @@ public class NotGateBlock extends DiodeBlock {
         }
     }
 
-    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         return direction == Direction.DOWN && !this.canSurviveOn(level, neighborPos, neighborState) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
-    @Override
     protected boolean sideInputDiodesOnly() {
         return true;
     }
 
-    @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(POWERED)) {
             Direction direction = state.getValue(FACING);
@@ -72,7 +67,6 @@ public class NotGateBlock extends DiodeBlock {
         }
     }
 
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED);
     }
