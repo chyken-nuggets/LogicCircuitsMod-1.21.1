@@ -17,4 +17,6 @@ public class LogicBlocks {
     public static final DeferredHolder<Block, Block> NAND_GATE = BLOCKS.register("nand_gate", () -> new NandGateBlock(BlockBehaviour.Properties.of()));
     public static final DeferredHolder<Block, Block> XOR_GATE = BLOCKS.register("xor_gate", () -> new XorGateBlock(BlockBehaviour.Properties.of()));
     public static final DeferredHolder<Block, Block> XNOR_GATE = BLOCKS.register("xnor_gate", () -> new XnorGateBlock(BlockBehaviour.Properties.of()));
+
+    public static final DeferredHolder<Block, Block> SR_LATCH = BLOCKS.register("sr_latch", () -> new SRLatchBlock(BlockBehaviour.Properties.of()));
 }

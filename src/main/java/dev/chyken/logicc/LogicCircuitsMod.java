@@ -59,6 +59,8 @@ public class LogicCircuitsMod {
             event.accept(LogicItems.NAND_GATE_ITEM);
             event.accept(LogicItems.XOR_GATE_ITEM);
             event.accept(LogicItems.XNOR_GATE_ITEM);
+
+            event.accept(LogicItems.SR_LATCH_ITEM);
         }
     }
 

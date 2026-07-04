@@ -16,4 +16,6 @@ public class LogicItems {
     public static final DeferredItem<BlockItem> NAND_GATE_ITEM = ITEMS.registerSimpleBlockItem("nand_gate", LogicBlocks.NAND_GATE);
     public static final DeferredItem<BlockItem> XOR_GATE_ITEM = ITEMS.registerSimpleBlockItem("xor_gate", LogicBlocks.XOR_GATE);
     public static final DeferredItem<BlockItem> XNOR_GATE_ITEM = ITEMS.registerSimpleBlockItem("xnor_gate", LogicBlocks.XNOR_GATE);
+
+    public static final DeferredItem<BlockItem> SR_LATCH_ITEM = ITEMS.registerSimpleBlockItem("sr_latch", LogicBlocks.SR_LATCH);
 }

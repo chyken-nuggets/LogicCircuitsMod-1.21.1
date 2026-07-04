@@ -7,6 +7,8 @@
   "block.logicc.xor_gate": "XOR Gate",
   "block.logicc.xnor_gate": "XNOR Gate",
 
+  "block.logicc.sr_latch": "SR Latch",
+
   "logicc.configuration.title": "Example Mod Configs",
   "logicc.configuration.section.logicc.common.toml": "Example Mod Configs",
   "logicc.configuration.section.logicc.common.toml.title": "Example Mod Configs",
