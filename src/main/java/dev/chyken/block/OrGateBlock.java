@@ -1,9 +1,7 @@
 package dev.chyken.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.SignalGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class OrGateBlock extends LogicGateBlock {
@@ -12,11 +10,7 @@ public class OrGateBlock extends LogicGateBlock {
     }
 
     @Override
-    protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
-        if (blockAccess instanceof SignalGetter level) {
-            return (getAlternateSignal(level, pos, blockState) > 0) && blockState.getValue(FACING) == side ? 15 : 0;
-        } else {
-            return 0;
-        }
+    protected boolean shouldTurnOn(Level level, BlockPos pos, BlockState state) {
+        return getAlternateSignal(level, pos, state) > 0;
     }
 }

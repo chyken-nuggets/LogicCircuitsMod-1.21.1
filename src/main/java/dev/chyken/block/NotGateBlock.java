@@ -1,8 +1,7 @@
 package dev.chyken.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class NotGateBlock extends LogicGateBlock {
@@ -11,12 +10,8 @@ public class NotGateBlock extends LogicGateBlock {
     }
 
     @Override
-    protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
-        if (blockState.getValue(POWERED)) {
-            return 0;
-        } else {
-            return blockState.getValue(FACING) == side ? this.getOutputSignal(blockAccess, pos, blockState) : 0;
-        }
+    protected boolean shouldTurnOn(Level level, BlockPos pos, BlockState state) {
+        return this.getInputSignal(level, pos, state) == 0;
     }
 
     @Override
