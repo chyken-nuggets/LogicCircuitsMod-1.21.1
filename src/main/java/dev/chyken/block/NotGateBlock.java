@@ -10,6 +10,7 @@ public class NotGateBlock extends LogicGateBlock {
         super(properties);
     }
 
+    @Override
     protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
         if (blockState.getValue(POWERED)) {
             return 0;

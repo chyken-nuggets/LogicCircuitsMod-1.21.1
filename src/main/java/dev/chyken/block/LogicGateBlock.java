@@ -15,6 +15,7 @@ import net.minecraft.world.level.material.PushReaction;
 public class LogicGateBlock extends DiodeBlock {
     public static final MapCodec<LogicGateBlock> CODEC = simpleCodec(LogicGateBlock::new);
 
+    @Override
     public MapCodec<LogicGateBlock> codec() {
         return CODEC;
     }
@@ -29,18 +30,22 @@ public class LogicGateBlock extends DiodeBlock {
         );
     }
 
+    @Override
     protected int getDelay(BlockState state) {
         return 2;
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction direction, BlockState neighborState, LevelAccessor level, BlockPos pos, BlockPos neighborPos) {
         return direction == Direction.DOWN && !this.canSurviveOn(level, neighborPos, neighborState) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, direction, neighborState, level, pos, neighborPos);
     }
 
+    @Override
     protected boolean sideInputDiodesOnly() {
         return false;
     }
 
+    @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(POWERED)) {
             Direction direction = state.getValue(FACING);
@@ -59,6 +64,7 @@ public class LogicGateBlock extends DiodeBlock {
         }
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED);
     }

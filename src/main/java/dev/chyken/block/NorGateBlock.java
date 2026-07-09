@@ -11,6 +11,7 @@ public class NorGateBlock extends LogicGateBlock {
         super(properties);
     }
 
+    @Override
     protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
         if (blockAccess instanceof SignalGetter level) {
             return (getAlternateSignal(level, pos, blockState) <= 0) && blockState.getValue(FACING) == side ? 15 : 0;

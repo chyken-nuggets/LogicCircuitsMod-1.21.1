@@ -11,6 +11,7 @@ public class NandGateBlock extends LogicGateBlock {
         super(properties);
     }
 
+    @Override
     protected int getSignal(BlockState blockState, BlockGetter blockAccess, BlockPos pos, Direction side) {
         Direction direction = blockState.getValue(FACING);
         Direction left = direction.getClockWise();
