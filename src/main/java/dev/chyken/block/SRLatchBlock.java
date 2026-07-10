@@ -31,7 +31,7 @@ public class SRLatchBlock extends LogicGateBlock {
     }
 
     public SRLatchBlock(Properties properties) {
-        super(properties.instabreak().sound(SoundType.STONE).pushReaction(PushReaction.DESTROY));
+        super(properties);
         this.registerDefaultState(
                 this.stateDefinition
                         .any()
