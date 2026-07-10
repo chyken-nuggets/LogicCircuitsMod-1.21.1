@@ -1,6 +1,5 @@
 package dev.chyken.block;
 
-import com.mojang.serialization.MapCodec;
 import dev.chyken.block.state.properties.SRLatchPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -8,9 +7,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -23,15 +20,10 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class SRLatchBlock extends HorizontalDirectionalBlock {
+public class SRLatchBlock extends LogicGateBlock {
     protected static final VoxelShape SHAPE = Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)2.0F, (double)16.0F);
-    public static final MapCodec<SRLatchBlock> CODEC = simpleCodec(SRLatchBlock::new);
     public static final EnumProperty<SRLatchPart> PART = EnumProperty.create("part", SRLatchPart.class);
     public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-
-    public MapCodec<SRLatchBlock> codec() {
-        return CODEC;
-    }
 
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -73,6 +65,10 @@ public class SRLatchBlock extends HorizontalDirectionalBlock {
             level.blockUpdated(pos, Blocks.AIR);
             level.blockUpdated(primaryPos, Blocks.AIR);
         }
+
+        if (this.shouldTurnOn(level, pos, state)) {
+            level.scheduleTick(pos, this, 1);
+        }
     }
 
     @Override
@@ -95,13 +91,32 @@ public class SRLatchBlock extends HorizontalDirectionalBlock {
     @Override
     protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         if (facing != getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
+            if (facing == Direction.DOWN && !this.canSurviveOn(level, facingPos, facingState)) {
+                return Blocks.AIR.defaultBlockState();
+            }
             return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
         } else {
-            return facingState.is(this) && facingState.getValue(PART) != state.getValue(PART) ? state.setValue(POWERED, facingState.getValue(POWERED)) : Blocks.AIR.defaultBlockState();
+            return facingState.is(this) && facingState.getValue(PART) != state.getValue(PART) ? state.setValue(POWERED, !facingState.getValue(POWERED)) : Blocks.AIR.defaultBlockState();
         }
     }
 
     private static Direction getNeighbourDirection(SRLatchPart part, Direction direction) {
         return part == SRLatchPart.PRIMARY ? direction.getCounterClockWise() : direction.getClockWise();
+    }
+
+    @Override
+    protected boolean shouldTurnOn(Level level, BlockPos pos, BlockState state) {
+        BlockPos secondaryPos = state.getValue(PART) == SRLatchPart.PRIMARY ? pos.relative(state.getValue(FACING).getCounterClockWise()) : pos.relative(state.getValue(FACING).getClockWise());
+        BlockState secondaryState = level.getBlockState(secondaryPos);
+
+        if (!secondaryState.is(this)) {
+            return state.getValue(POWERED);
+        }
+
+        if (this.getInputSignal(level, pos, state) <= 0 == this.getInputSignal(level, secondaryPos, secondaryState) <= 0) {
+            return state.getValue(POWERED);
+        }
+
+        return !(this.getInputSignal(level, pos, state) > 0);
     }
 }
