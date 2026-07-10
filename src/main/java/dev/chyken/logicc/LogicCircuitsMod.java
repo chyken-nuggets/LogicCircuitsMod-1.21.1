@@ -2,6 +2,7 @@ package dev.chyken.logicc;
 
 
 import dev.chyken.block.LogicBlocks;
+import dev.chyken.data.LogicDataGenerator;
 import dev.chyken.item.LogicItems;
 import org.slf4j.Logger;
 
@@ -34,6 +35,7 @@ public class LogicCircuitsMod {
         NeoForge.EVENT_BUS.register(this);
 
         modEventBus.addListener(this::addCreative);
+        modEventBus.addListener(LogicDataGenerator::gatherData);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
