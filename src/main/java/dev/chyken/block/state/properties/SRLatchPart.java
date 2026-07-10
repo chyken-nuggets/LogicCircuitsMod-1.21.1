@@ -3,8 +3,8 @@ package dev.chyken.block.state.properties;
 import net.minecraft.util.StringRepresentable;
 
 public enum SRLatchPart implements StringRepresentable {
-    PRIMARY("primary"),
-    SECONDARY("secondary");
+    RESET("reset"),
+    SET("set");
 
     private final String name;
 

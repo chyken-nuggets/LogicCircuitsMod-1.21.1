@@ -37,7 +37,7 @@ public class SRLatchBlock extends LogicGateBlock {
                         .any()
                         .setValue(FACING, Direction.NORTH)
                         .setValue(POWERED, Boolean.valueOf(false))
-                        .setValue(PART, SRLatchPart.PRIMARY)
+                        .setValue(PART, SRLatchPart.RESET)
         );
     }
 
@@ -59,11 +59,11 @@ public class SRLatchBlock extends LogicGateBlock {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (!level.isClientSide) {
-            BlockPos primaryPos = pos.relative(state.getValue(FACING).getCounterClockWise());
+            BlockPos setPos = pos.relative(state.getValue(FACING).getCounterClockWise());
 
-            level.setBlock(primaryPos, state.setValue(PART, SRLatchPart.SECONDARY), 3);
+            level.setBlock(setPos, state.setValue(PART, SRLatchPart.SET), 3);
             level.blockUpdated(pos, Blocks.AIR);
-            level.blockUpdated(primaryPos, Blocks.AIR);
+            level.blockUpdated(setPos, Blocks.AIR);
         }
 
         if (this.shouldTurnOn(level, pos, state)) {
@@ -75,10 +75,10 @@ public class SRLatchBlock extends LogicGateBlock {
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && player.isCreative()) {
             SRLatchPart latchpart = state.getValue(PART);
-            if (latchpart == SRLatchPart.PRIMARY) {
+            if (latchpart == SRLatchPart.RESET) {
                 BlockPos blockpos = pos.relative(getNeighbourDirection(latchpart, state.getValue(FACING)));
                 BlockState blockstate = level.getBlockState(blockpos);
-                if (blockstate.is(this) && blockstate.getValue(PART) == SRLatchPart.SECONDARY) {
+                if (blockstate.is(this) && blockstate.getValue(PART) == SRLatchPart.SET) {
                     level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
                     level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
                 }
@@ -101,19 +101,19 @@ public class SRLatchBlock extends LogicGateBlock {
     }
 
     private static Direction getNeighbourDirection(SRLatchPart part, Direction direction) {
-        return part == SRLatchPart.PRIMARY ? direction.getCounterClockWise() : direction.getClockWise();
+        return part == SRLatchPart.RESET ? direction.getCounterClockWise() : direction.getClockWise();
     }
 
     @Override
     protected boolean shouldTurnOn(Level level, BlockPos pos, BlockState state) {
-        BlockPos secondaryPos = state.getValue(PART) == SRLatchPart.PRIMARY ? pos.relative(state.getValue(FACING).getCounterClockWise()) : pos.relative(state.getValue(FACING).getClockWise());
-        BlockState secondaryState = level.getBlockState(secondaryPos);
+        BlockPos setPos = state.getValue(PART) == SRLatchPart.RESET ? pos.relative(state.getValue(FACING).getCounterClockWise()) : pos.relative(state.getValue(FACING).getClockWise());
+        BlockState setState = level.getBlockState(setPos);
 
-        if (!secondaryState.is(this)) {
+        if (!setState.is(this)) {
             return state.getValue(POWERED);
         }
 
-        if (this.getInputSignal(level, pos, state) <= 0 == this.getInputSignal(level, secondaryPos, secondaryState) <= 0) {
+        if (this.getInputSignal(level, pos, state) <= 0 == this.getInputSignal(level, setPos, setState) <= 0) {
             return state.getValue(POWERED);
         }
 
