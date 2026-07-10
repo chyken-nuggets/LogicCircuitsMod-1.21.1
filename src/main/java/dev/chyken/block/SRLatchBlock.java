@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
@@ -17,16 +18,24 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 public class SRLatchBlock extends HorizontalDirectionalBlock {
+    protected static final VoxelShape SHAPE = Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)2.0F, (double)16.0F);
     public static final MapCodec<SRLatchBlock> CODEC = simpleCodec(SRLatchBlock::new);
-    public static final EnumProperty<SRLatchPart> PART;
-    public static final BooleanProperty POWERED;
+    public static final EnumProperty<SRLatchPart> PART = EnumProperty.create("part", SRLatchPart.class);
+    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
 
     public MapCodec<SRLatchBlock> codec() {
         return CODEC;
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
     }
 
     public SRLatchBlock(Properties properties) {
@@ -36,48 +45,44 @@ public class SRLatchBlock extends HorizontalDirectionalBlock {
                         .any()
                         .setValue(FACING, Direction.NORTH)
                         .setValue(POWERED, Boolean.valueOf(false))
-                        .setValue(PART, SRLatchPart.SECONDARY)
+                        .setValue(PART, SRLatchPart.PRIMARY)
         );
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING, POWERED, PART);
     }
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        Direction direction = context.getHorizontalDirection();
-        BlockPos secondaryPos = context.getClickedPos();
-        BlockPos primaryPos = secondaryPos.relative(direction.getClockWise());
+        Direction direction = context.getHorizontalDirection().getOpposite();
+        BlockPos blockpos = context.getClickedPos();
+        BlockPos blockpos1 = blockpos.relative(direction.getCounterClockWise());
         Level level = context.getLevel();
-
-        if (level.getBlockState(primaryPos).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(primaryPos)) {
-            return this.defaultBlockState()
-                    .setValue(FACING, direction)
-                    .setValue(PART, SRLatchPart.SECONDARY)
-                    .setValue(POWERED, false);
-        }
-        return null;
+        return level.getBlockState(blockpos1).canBeReplaced(context) && level.getWorldBorder().isWithinBounds(blockpos1) ? (BlockState)this.defaultBlockState().setValue(FACING, direction) : null;
     }
 
+    @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
         if (!level.isClientSide) {
-            BlockPos primaryPos = pos.relative(state.getValue(FACING).getClockWise());
+            BlockPos primaryPos = pos.relative(state.getValue(FACING).getCounterClockWise());
 
-            level.setBlock(primaryPos, state.setValue(PART, SRLatchPart.PRIMARY), 3);
+            level.setBlock(primaryPos, state.setValue(PART, SRLatchPart.SECONDARY), 3);
             level.blockUpdated(pos, Blocks.AIR);
             level.blockUpdated(primaryPos, Blocks.AIR);
         }
     }
 
+    @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && player.isCreative()) {
-            SRLatchPart latchpart = (SRLatchPart)state.getValue(PART);
-            if (latchpart == SRLatchPart.SECONDARY) {
-                BlockPos blockpos = pos.relative(getNeighbourDirection(latchpart, (Direction)state.getValue(FACING)));
+            SRLatchPart latchpart = state.getValue(PART);
+            if (latchpart == SRLatchPart.PRIMARY) {
+                BlockPos blockpos = pos.relative(getNeighbourDirection(latchpart, state.getValue(FACING)));
                 BlockState blockstate = level.getBlockState(blockpos);
-                if (blockstate.is(this) && blockstate.getValue(PART) == SRLatchPart.PRIMARY) {
+                if (blockstate.is(this) && blockstate.getValue(PART) == SRLatchPart.SECONDARY) {
                     level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
                     level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
                 }
@@ -87,20 +92,16 @@ public class SRLatchBlock extends HorizontalDirectionalBlock {
         return super.playerWillDestroy(level, pos, state, player);
     }
 
+    @Override
     protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
-        if (facing != getNeighbourDirection((SRLatchPart) state.getValue(PART), (Direction)state.getValue(FACING))) {
+        if (facing != getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
             return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
         } else {
-            return facingState.is(this) && facingState.getValue(PART) != state.getValue(PART) ? (BlockState)state.setValue(POWERED, (Boolean)facingState.getValue(POWERED)) : Blocks.AIR.defaultBlockState();
+            return facingState.is(this) && facingState.getValue(PART) != state.getValue(PART) ? state.setValue(POWERED, facingState.getValue(POWERED)) : Blocks.AIR.defaultBlockState();
         }
     }
 
     private static Direction getNeighbourDirection(SRLatchPart part, Direction direction) {
-        return part == SRLatchPart.SECONDARY ? direction.getClockWise() : direction.getCounterClockWise();
-    }
-
-    static {
-        POWERED = BlockStateProperties.POWERED;
-        PART = EnumProperty.create("part", SRLatchPart.class);
+        return part == SRLatchPart.PRIMARY ? direction.getCounterClockWise() : direction.getClockWise();
     }
 }
