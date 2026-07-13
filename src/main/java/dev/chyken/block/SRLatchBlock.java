@@ -11,24 +11,12 @@ import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 public class SRLatchBlock extends LogicGateBlock {
-    protected static final VoxelShape SHAPE = Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)2.0F, (double)16.0F);
     public static final EnumProperty<SRLatchPart> PART = EnumProperty.create("part", SRLatchPart.class);
-    public static final BooleanProperty POWERED = BlockStateProperties.POWERED;
-
-    @Override
-    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
-    }
 
     public SRLatchBlock(Properties properties) {
         super(properties);
@@ -91,9 +79,6 @@ public class SRLatchBlock extends LogicGateBlock {
     @Override
     protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
         if (facing != getNeighbourDirection(state.getValue(PART), state.getValue(FACING))) {
-            if (facing == Direction.DOWN && !this.canSurviveOn(level, facingPos, facingState)) {
-                return Blocks.AIR.defaultBlockState();
-            }
             return super.updateShape(state, facing, facingState, level, currentPos, facingPos);
         } else {
             return facingState.is(this) && facingState.getValue(PART) != state.getValue(PART) ? state.setValue(POWERED, !facingState.getValue(POWERED)) : Blocks.AIR.defaultBlockState();

@@ -41,11 +41,6 @@ public class LogicGateBlock extends DiodeBlock {
     }
 
     @Override
-    protected boolean sideInputDiodesOnly() {
-        return false;
-    }
-
-    @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (state.getValue(POWERED)) {
             Direction direction = state.getValue(FACING);
