@@ -1,6 +1,6 @@
 package dev.chyken.block;
 
-import dev.chyken.block.state.properties.SRLatchPart;
+import dev.chyken.block.state.properties.DoubleBlockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import javax.annotation.Nullable;
 
 public class SRLatchBlock extends LogicGateBlock {
-    public static final EnumProperty<SRLatchPart> PART = EnumProperty.create("part", SRLatchPart.class);
+    public static final EnumProperty<DoubleBlockPart> PART = EnumProperty.create("part", DoubleBlockPart.class);
 
     public SRLatchBlock(Properties properties) {
         super(properties);
@@ -25,7 +25,7 @@ public class SRLatchBlock extends LogicGateBlock {
                         .any()
                         .setValue(FACING, Direction.NORTH)
                         .setValue(POWERED, Boolean.valueOf(false))
-                        .setValue(PART, SRLatchPart.RESET)
+                        .setValue(PART, DoubleBlockPart.LEFT)
         );
     }
 
@@ -49,7 +49,7 @@ public class SRLatchBlock extends LogicGateBlock {
         if (!level.isClientSide) {
             BlockPos setPos = pos.relative(state.getValue(FACING).getCounterClockWise());
 
-            level.setBlock(setPos, state.setValue(PART, SRLatchPart.SET), 3);
+            level.setBlock(setPos, state.setValue(PART, DoubleBlockPart.RIGHT), 3);
             level.blockUpdated(pos, Blocks.AIR);
             level.blockUpdated(setPos, Blocks.AIR);
         }
@@ -62,11 +62,11 @@ public class SRLatchBlock extends LogicGateBlock {
     @Override
     public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (!level.isClientSide && player.isCreative()) {
-            SRLatchPart latchpart = state.getValue(PART);
-            if (latchpart == SRLatchPart.RESET) {
+            DoubleBlockPart latchpart = state.getValue(PART);
+            if (latchpart == DoubleBlockPart.LEFT) {
                 BlockPos blockpos = pos.relative(getNeighbourDirection(latchpart, state.getValue(FACING)));
                 BlockState blockstate = level.getBlockState(blockpos);
-                if (blockstate.is(this) && blockstate.getValue(PART) == SRLatchPart.SET) {
+                if (blockstate.is(this) && blockstate.getValue(PART) == DoubleBlockPart.RIGHT) {
                     level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 35);
                     level.levelEvent(player, 2001, blockpos, Block.getId(blockstate));
                 }
@@ -85,13 +85,13 @@ public class SRLatchBlock extends LogicGateBlock {
         }
     }
 
-    private static Direction getNeighbourDirection(SRLatchPart part, Direction direction) {
-        return part == SRLatchPart.RESET ? direction.getCounterClockWise() : direction.getClockWise();
+    private static Direction getNeighbourDirection(DoubleBlockPart part, Direction direction) {
+        return part == DoubleBlockPart.LEFT ? direction.getCounterClockWise() : direction.getClockWise();
     }
 
     @Override
     protected boolean shouldTurnOn(Level level, BlockPos pos, BlockState state) {
-        BlockPos setPos = state.getValue(PART) == SRLatchPart.RESET ? pos.relative(state.getValue(FACING).getCounterClockWise()) : pos.relative(state.getValue(FACING).getClockWise());
+        BlockPos setPos = pos.relative(getNeighbourDirection(state.getValue(PART), state.getValue(FACING)));
         BlockState setState = level.getBlockState(setPos);
 
         if (!setState.is(this)) {
