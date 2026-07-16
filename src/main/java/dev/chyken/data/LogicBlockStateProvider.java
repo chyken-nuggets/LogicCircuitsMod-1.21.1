@@ -2,8 +2,8 @@ package dev.chyken.data;
 
 import dev.chyken.block.LogicBlocks;
 import dev.chyken.block.types.LogicGateBlock;
-import dev.chyken.block.latches.SRLatchBlock;
 import dev.chyken.block.state.properties.DoubleBlockPart;
+import dev.chyken.block.types.TwoPartLogicBlock;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
@@ -56,9 +56,9 @@ public class LogicBlockStateProvider extends BlockStateProvider {
         ModelFile secondaryOn = models().getExistingFile(modLoc("block/" + secondaryName + "_on"));
 
         getVariantBuilder(block).forAllStates(state -> {
-            Direction facing = state.getValue(SRLatchBlock.FACING);
-            boolean powered = state.getValue(SRLatchBlock.POWERED);
-            var part = state.getValue(SRLatchBlock.PART);
+            Direction facing = state.getValue(TwoPartLogicBlock.FACING);
+            boolean powered = state.getValue(TwoPartLogicBlock.POWERED);
+            var part = state.getValue(TwoPartLogicBlock.PART);
 
             ModelFile activeModel;
             if (part == DoubleBlockPart.LEFT) {
