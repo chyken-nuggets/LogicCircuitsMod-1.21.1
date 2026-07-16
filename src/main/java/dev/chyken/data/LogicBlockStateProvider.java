@@ -1,8 +1,8 @@
 package dev.chyken.data;
 
 import dev.chyken.block.LogicBlocks;
-import dev.chyken.block.LogicGateBlock;
-import dev.chyken.block.SRLatchBlock;
+import dev.chyken.block.types.LogicGateBlock;
+import dev.chyken.block.latches.SRLatchBlock;
 import dev.chyken.block.state.properties.DoubleBlockPart;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.core.Direction;
@@ -81,6 +81,8 @@ public class LogicBlockStateProvider extends BlockStateProvider {
         registerLogicGate(LogicBlocks.XOR_GATE.get(), "xor_gate");
         registerLogicGate(LogicBlocks.XNOR_GATE.get(), "xnor_gate");
 
+        registerDouble(LogicBlocks.HALF_ADDER.get(), "half_sum", "carry");
+        registerDouble(LogicBlocks.FULL_ADDER.get(), "full_sum", "carry");
         registerDouble(LogicBlocks.SR_LATCH.get(), "reset", "set");
     }
 }

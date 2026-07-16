@@ -22,6 +22,8 @@ public class LogicItemModelProvider extends ItemModelProvider {
         basicItem(LogicItems.XOR_GATE_ITEM.get());
         basicItem(LogicItems.XNOR_GATE_ITEM.get());
 
+        basicItem(LogicItems.HALF_ADDER_ITEM.get());
+        basicItem(LogicItems.FULL_ADDER_ITEM.get());
         basicItem(LogicItems.SR_LATCH_ITEM.get());
     }
 }

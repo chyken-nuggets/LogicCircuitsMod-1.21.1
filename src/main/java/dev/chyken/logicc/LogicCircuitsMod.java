@@ -62,6 +62,8 @@ public class LogicCircuitsMod {
             event.accept(LogicItems.XOR_GATE_ITEM);
             event.accept(LogicItems.XNOR_GATE_ITEM);
 
+            event.accept(LogicItems.HALF_ADDER_ITEM);
+            event.accept(LogicItems.FULL_ADDER_ITEM);
             event.accept(LogicItems.SR_LATCH_ITEM);
         }
     }

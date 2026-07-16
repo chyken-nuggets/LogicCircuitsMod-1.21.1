@@ -24,6 +24,8 @@ public class LogicBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(LogicBlocks.XOR_GATE.get());
         this.dropSelf(LogicBlocks.XNOR_GATE.get());
 
+        this.dropSelf(LogicBlocks.HALF_ADDER.get());
+        this.dropSelf(LogicBlocks.FULL_ADDER.get());
         this.dropSelf(LogicBlocks.SR_LATCH.get());
     }
 

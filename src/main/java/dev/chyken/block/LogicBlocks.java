@@ -1,5 +1,7 @@
 package dev.chyken.block;
 
+import dev.chyken.block.adders.FullAdderBlock;
+import dev.chyken.block.adders.HalfAdderBlock;
 import dev.chyken.block.gates.*;
 import dev.chyken.block.latches.SRLatchBlock;
 import dev.chyken.logicc.LogicCircuitsMod;
@@ -20,5 +22,7 @@ public class LogicBlocks {
     public static final DeferredHolder<Block, Block> XOR_GATE = BLOCKS.register("xor_gate", () -> new XorGateBlock(BlockBehaviour.Properties.of()));
     public static final DeferredHolder<Block, Block> XNOR_GATE = BLOCKS.register("xnor_gate", () -> new XnorGateBlock(BlockBehaviour.Properties.of()));
 
+    public static final DeferredHolder<Block, Block> HALF_ADDER = BLOCKS.register("half_adder", () -> new HalfAdderBlock(BlockBehaviour.Properties.of()));
+    public static final DeferredHolder<Block, Block> FULL_ADDER = BLOCKS.register("full_adder", () -> new FullAdderBlock(BlockBehaviour.Properties.of()));
     public static final DeferredHolder<Block, Block> SR_LATCH = BLOCKS.register("sr_latch", () -> new SRLatchBlock(BlockBehaviour.Properties.of()));
 }
