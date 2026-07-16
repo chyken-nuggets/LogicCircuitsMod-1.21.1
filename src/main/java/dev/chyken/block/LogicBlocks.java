@@ -1,5 +1,7 @@
 package dev.chyken.block;
 
+import dev.chyken.block.gates.*;
+import dev.chyken.block.latches.SRLatchBlock;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;

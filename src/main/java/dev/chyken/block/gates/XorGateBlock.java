@@ -1,13 +1,13 @@
-package dev.chyken.block;
+package dev.chyken.block.gates;
 
+import dev.chyken.block.types.LogicGateBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class AndGateBlock extends LogicGateBlock {
-    public AndGateBlock(Properties properties) {
+public class XorGateBlock extends LogicGateBlock {
+    public XorGateBlock(Properties properties) {
         super(properties);
     }
 
@@ -18,6 +18,6 @@ public class AndGateBlock extends LogicGateBlock {
         Direction right = direction.getCounterClockWise();
         boolean flag = this.sideInputDiodesOnly();
 
-        return level.getControlInputSignal(pos.relative(left), left, flag) > 0 && level.getControlInputSignal(pos.relative(right), right, flag) > 0;
+        return level.getControlInputSignal(pos.relative(left), left, flag) > 0 ^ level.getControlInputSignal(pos.relative(right), right, flag) > 0;
     }
 }
