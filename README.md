@@ -41,7 +41,7 @@ The Half Adder, Full Adder, and SR Latch occupy two adjacent blocks when placed.
 ## Installation
 
 1. Install a compatible NeoForge 1.21.1 profile.
-2. Download the `logicc-1.0.0.jar` release file.
+2. Download the `logicc-(version).jar` release file.
 3. Put the JAR in your Minecraft instance's `mods` folder.
 4. Launch Minecraft with NeoForge.
 
