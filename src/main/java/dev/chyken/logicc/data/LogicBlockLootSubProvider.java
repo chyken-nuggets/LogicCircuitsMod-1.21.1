@@ -1,11 +1,10 @@
-package dev.chyken.data;
+package dev.chyken.logicc.data;
 
-import dev.chyken.block.LogicBlocks;
-import dev.chyken.block.adders.FullAdderBlock;
-import dev.chyken.block.adders.HalfAdderBlock;
-import dev.chyken.block.latches.SRLatchBlock;
-import dev.chyken.block.state.properties.DoubleBlockPart;
-import dev.chyken.block.types.TwoPartLogicBlock;
+import dev.chyken.logicc.block.LogicBlocks;
+import dev.chyken.logicc.block.adders.FullAdderBlock;
+import dev.chyken.logicc.block.adders.HalfAdderBlock;
+import dev.chyken.logicc.block.latches.SRLatchBlock;
+import dev.chyken.logicc.block.state.properties.DoubleBlockPart;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;

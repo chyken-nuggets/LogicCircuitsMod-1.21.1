@@ -1,7 +1,7 @@
-package dev.chyken.block.adders;
+package dev.chyken.logicc.block.adders;
 
-import dev.chyken.block.state.properties.DoubleBlockPart;
-import dev.chyken.block.types.TwoPartLogicBlock;
+import dev.chyken.logicc.block.state.properties.DoubleBlockPart;
+import dev.chyken.logicc.block.types.TwoPartLogicBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.BlockGetter;

@@ -1,9 +1,8 @@
 package dev.chyken.logicc;
 
-
-import dev.chyken.block.LogicBlocks;
-import dev.chyken.data.LogicDataGenerator;
-import dev.chyken.item.LogicItems;
+import dev.chyken.logicc.block.LogicBlocks;
+import dev.chyken.logicc.data.LogicDataGenerator;
+import dev.chyken.logicc.item.LogicItems;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;

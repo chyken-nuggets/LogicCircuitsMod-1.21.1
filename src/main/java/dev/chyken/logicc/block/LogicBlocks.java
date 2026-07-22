@@ -1,9 +1,9 @@
-package dev.chyken.block;
+package dev.chyken.logicc.block;
 
-import dev.chyken.block.adders.FullAdderBlock;
-import dev.chyken.block.adders.HalfAdderBlock;
-import dev.chyken.block.gates.*;
-import dev.chyken.block.latches.SRLatchBlock;
+import dev.chyken.logicc.block.adders.FullAdderBlock;
+import dev.chyken.logicc.block.adders.HalfAdderBlock;
+import dev.chyken.logicc.block.gates.*;
+import dev.chyken.logicc.block.latches.SRLatchBlock;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.Block;

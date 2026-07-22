@@ -1,9 +1,9 @@
-package dev.chyken.data;
+package dev.chyken.logicc.data;
 
-import dev.chyken.block.LogicBlocks;
-import dev.chyken.block.types.LogicGateBlock;
-import dev.chyken.block.state.properties.DoubleBlockPart;
-import dev.chyken.block.types.TwoPartLogicBlock;
+import dev.chyken.logicc.block.LogicBlocks;
+import dev.chyken.logicc.block.types.LogicGateBlock;
+import dev.chyken.logicc.block.state.properties.DoubleBlockPart;
+import dev.chyken.logicc.block.types.TwoPartLogicBlock;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;

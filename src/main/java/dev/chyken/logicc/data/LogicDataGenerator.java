@@ -1,4 +1,4 @@
-package dev.chyken.data;
+package dev.chyken.logicc.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;

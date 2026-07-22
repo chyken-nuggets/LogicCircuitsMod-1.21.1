@@ -1,4 +1,4 @@
-package dev.chyken.block.state.properties;
+package dev.chyken.logicc.block.state.properties;
 
 import net.minecraft.util.StringRepresentable;
 

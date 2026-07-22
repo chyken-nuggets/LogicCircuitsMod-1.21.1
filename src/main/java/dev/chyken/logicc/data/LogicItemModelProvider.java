@@ -1,6 +1,6 @@
-package dev.chyken.data;
+package dev.chyken.logicc.data;
 
-import dev.chyken.item.LogicItems;
+import dev.chyken.logicc.item.LogicItems;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;

@@ -1,6 +1,6 @@
-package dev.chyken.item;
+package dev.chyken.logicc.item;
 
-import dev.chyken.block.LogicBlocks;
+import dev.chyken.logicc.block.LogicBlocks;
 import dev.chyken.logicc.LogicCircuitsMod;
 import net.minecraft.world.item.BlockItem;
 import net.neoforged.neoforge.registries.DeferredItem;

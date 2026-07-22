@@ -1,6 +1,6 @@
-package dev.chyken.block.latches;
+package dev.chyken.logicc.block.latches;
 
-import dev.chyken.block.types.TwoPartLogicBlock;
+import dev.chyken.logicc.block.types.TwoPartLogicBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.*;

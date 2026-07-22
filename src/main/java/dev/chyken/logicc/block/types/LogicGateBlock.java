@@ -1,4 +1,4 @@
-package dev.chyken.block.types;
+package dev.chyken.logicc.block.types;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;

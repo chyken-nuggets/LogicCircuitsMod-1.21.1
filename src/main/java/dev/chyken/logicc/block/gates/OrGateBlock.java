@@ -1,6 +1,6 @@
-package dev.chyken.block.gates;
+package dev.chyken.logicc.block.gates;
 
-import dev.chyken.block.types.LogicGateBlock;
+import dev.chyken.logicc.block.types.LogicGateBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;

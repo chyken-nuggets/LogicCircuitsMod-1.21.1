@@ -1,6 +1,6 @@
-package dev.chyken.block.types;
+package dev.chyken.logicc.block.types;
 
-import dev.chyken.block.state.properties.DoubleBlockPart;
+import dev.chyken.logicc.block.state.properties.DoubleBlockPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
